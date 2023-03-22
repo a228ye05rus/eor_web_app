@@ -1,0 +1,33 @@
+﻿@model eor_web_app.Models.Group
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h4>edit</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div type="hidden" class="form-group">
+                <label asp-for="ProfileId" class="control-label"></label>
+                <input type="hidden" asp-for="ProfileId" class="form-control" asp-items="ViewBag.D"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label" ></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

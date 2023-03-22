@@ -1,0 +1,79 @@
+﻿@using eor_web_app.ViewModels
+@model IndexViewModel
+
+@{
+    ViewData["Title"] = "Профили";
+}
+
+@if(User.Identity.IsAuthenticated)
+{
+<h3>Направление: @ViewBag.Direction</h3>
+<a asp-controller="Direction" asp-action="Index" class="btn-outline-secondary btn mb-2">Вернуться назад</a>
+<div class="dept">
+    @foreach(Profile p in Model.Profiles)
+    {
+        <div class="dept-item">
+            <h4 class="dept-item__title">@p.Name <a asp-action="Edit" asp-route-id="@p.Id">Edit</a> <a asp-action="Delete" asp-route-id="@p.Id">Delete</a> <a asp-controller="Group" asp-action="Create" asp-route-ProfileId="@p.Id">Add a group</a></h4>
+            <div class="dept-item__body">
+                @foreach (Group g in Model.Groups.Where(g => g.ProfileId == @p.Id))
+                {
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr style="background-color: #cff4fc;">
+                                <th scope="col" colspan="2">@g.Name <a asp-controller="Group" asp-action="Edit" asp-route-id="@g.Id">Edit</a> <a asp-controller="Group" asp-action="Delete" asp-route-id="@g.Id">Delete</a> <a asp-controller="Subject" asp-action="Create" asp-route-GroupId="@g.Id">Add a subject</a></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(Subject s in Model.Subjects.Where(s => s.GroupId == g.Id))
+                            {
+                                <tr>
+                                    <td>@s.Code</td>
+                                    <td class="name"><a asp-controller="FileModel" asp-action="Details" asp-route-id="@s.Id">@s.Name</a></td>
+                                    <td><a type="button" class="btn btn-primary btn-sm" asp-controller="Subject" asp-action="Edit" asp-route-id="@s.Id">Edit</a></td>
+                                    <td><a type="button" class="btn btn-primary btn-sm" asp-controller="Subject" asp-action="Delete" asp-route-id="@s.Id">Delete</a></td>
+                                    <td><a type="button" class="btn btn-primary btn-sm" asp-controller="FileModel" asp-action="Create" asp-route-SubjectId="@s.Id">Add a file</a></td>
+                                    <td><a type="button" class="btn btn-primary btn-sm" asp-controller="FileModel" asp-action="Delete" asp-route-id="@s.Id">Delete a file</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    }
+</div>
+}
+else
+{
+    <h3>Направление: @ViewBag.Direction</h3>
+<a asp-controller="Direction" asp-action="Index" class="btn-outline-secondary btn mb-2">Вернуться назад</a>
+<div class="dept">
+    @foreach(Profile p in Model.Profiles)
+    {
+        <div class="dept-item">
+            <h4 class="dept-item__title">@p.Name</h4>
+            <div class="dept-item__body">
+                @foreach (Group g in Model.Groups.Where(g => g.ProfileId == @p.Id))
+                {
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr style="background-color: #cff4fc;">
+                                <th scope="col" colspan="2">@g.Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(Subject s in Model.Subjects.Where(s => s.GroupId == g.Id))
+                            {
+                                <tr>
+                                    <td>@s.Code</td>
+                                    <td class="name"><a asp-controller="FileModel" asp-action="Details" asp-route-id="@s.Id">@s.Name</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    }
+</div>
+}

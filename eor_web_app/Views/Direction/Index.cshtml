@@ -1,0 +1,75 @@
+﻿@model IEnumerable<eor_web_app.Models.Direction>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (User.Identity.IsAuthenticated) {
+    <a type="button" class="btn btn-primary btn-sm" asp-action="Create">Create a new direction</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Code)*@
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Name)*@Направления
+            </th>
+            <th ></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => i.Code)
+                </td>
+                <td>
+                    <a asp-controller="Profile" asp-action="Index" asp-route-id="@i.Id">@Html.DisplayFor(model => i.Name)</a>
+                </td>
+                <td>
+                    <a type="button" class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@i.Id">Edit</a>
+                    <a type="button" class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@i.Id">Delete</a>
+                    <a type="button" class="btn btn-primary btn-sm" asp-controller="Profile" asp-action="Create" asp-route-DirectionId="@i.Id">Add a profile</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+    <form method="post" asp-controller="Account" asp-action="Logout">
+        <input type="submit" value="Выход" />
+    </form>
+    <a asp-controller="Roles" asp-action="Index">Роли</a>
+    <a asp-controller="Roles" asp-action="UserList">Список пользователей</a>
+    <a asp-controller="Users" asp-action="Index">Ползователи</a>
+}
+else{
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Code)*@
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Name)*@Направления
+            </th>
+            <th ></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => i.Code)
+                </td>
+                <td>
+                    <a asp-controller="Profile" asp-action="Index" asp-route-id="@i.Id">@Html.DisplayFor(model => i.Name)</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-controller="Account" asp-action="Login">Вход</a>
+}

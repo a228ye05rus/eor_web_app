@@ -1,0 +1,35 @@
+﻿@model eor_web_app.Models.Profile
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit a profile</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div type="hidden" class="form-group">
+                <label asp-for="DirectionId" class="control-label"></label>
+                <input type="hidden" asp-for="DirectionId" class="form-control" asp-items="ViewBag.D"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label" ></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<a type="button" class="btn btn-primary btn-sm" asp-action="Index">back to list</a>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

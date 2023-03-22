@@ -1,0 +1,34 @@
+﻿@model eor_web_app.Models.FileModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>add a new file</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden"  />
+            <div class="form-group">
+                <label asp-for="SubjectId" class="control-label"></label>
+                <input type="hidden" asp-for="SubjectId" class="form-control" asp-items="ViewBag.SubjectId" />
+            </div>
+            <div class="form-control">
+                <input type="file" name="uploadedFile" accept=".pdf" />
+            </div>
+            <div class="form-control">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

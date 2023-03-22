@@ -1,0 +1,70 @@
+﻿@model IEnumerable<eor_web_app.Models.Subject>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Code)*@
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Name)*@Предмет
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => i.Code)
+                </td>
+                <td>
+                    <a asp-controller="FileModel" asp-action="Details" asp-route-Id="@i.Id" >@Html.DisplayFor(modelItem => i.Name)</a>
+                </td>
+                <td>
+                    <a type="button" class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@i.Id">Edit</a>
+                    <a type="button" class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@i.Id">Delete</a>
+                    <a type="button" class="btn btn-success btn-sm" asp-controller="FileModel" asp-action="Create" asp-route-SubjectId="@i.Id" >Add a file</a>
+                    <a type="button" class="btn btn-danger btn-sm" asp-controller="FileModel" asp-action="Delete" asp-route-Id="@i.Id">Delete a file</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+else
+{
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Code)*@
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Name)*@Предмет
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => i.Code)
+                </td>
+                <td>
+                    <a asp-controller="FileModel" asp-action="Details" asp-route-Id="@i.Id" >@Html.DisplayFor(modelItem => i.Name)</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
